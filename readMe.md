@@ -1,5 +1,6 @@
 # Data Structure And Algorithms
 
+## segment Tree
       A Segment Tree is a data structure that allows answering range queries over
       an array effectively, and even can update the array in logarithmic time :) 
 
