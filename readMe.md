@@ -7,6 +7,6 @@
       Required:- Linear Amount of Memory Like array of size N would require 4N amount of
       Linear memory. So, It may be a Limitation.
 
-      reference(https://cp-algorithms.com/data_structures/segment_tree.html)
+      <a href="https://cp-algorithms.com/data_structures/segment_tree.html">reference</a>
 
 
