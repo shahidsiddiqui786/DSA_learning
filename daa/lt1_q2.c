@@ -1,5 +1,17 @@
 #include<stdio.h>
 #include<limits.h>
+#include<string.h>
+int hash(int m, int d) {
+    int index = m*100;
+    index += d;
+    return index;
+}
+int deHashD(int index) {
+    return (index%100);
+}
+int deHashM(int index) {
+    return (index/100);
+}
 
 int main() {
     int t;
@@ -7,123 +19,75 @@ int main() {
     while(t--){
         int n,q;
         scanf("%d%d",&n,&q);
-        char rollNo[n][15];
-        char courseId[n][15];
-        int arr[n][3];
-
-        int maxMarksInDay[13][32];
-        int maxMarksInReverseDay[13][32];
-        for(int i=0;i<13;i++){
-            for(int j=0;j<32;j++){
-                maxMarksInDay[i][j]=-1;
-                maxMarksInReverseDay[i][j]=-1;
-            }
+        char rollNo2[n][20];
+        char courseId2[n][20];
+        int arr[1232];
+        int dt[13][32];
+        for(int i=0;i<1232;i++){
+            arr[i] = -1;
         }
         for(int i=0;i<n;i++){
-            scanf("%s%s%d%d%d",rollNo[i],courseId[i],&arr[i][0],&arr[i][1],&arr[i][2]);
-            
-            if(maxMarksInDay[arr[i][2]][arr[i][1]] != -1){
-               if(arr[maxMarksInDay[arr[i][2]][arr[i][1]]][0]<arr[i][0]) {
-                    maxMarksInDay[arr[i][2]][arr[i][1]] = i;
-                    maxMarksInReverseDay[arr[i][2]][arr[i][1]] = i;
-                   
-               }
-            }
-            else{
-                maxMarksInDay[arr[i][2]][arr[i][1]] = i;
-                maxMarksInReverseDay[arr[i][2]][arr[i][1]] = i;
+           int m , d, marks;
+           scanf("%s%s%d%d%d",rollNo2[i],courseId2[i],&marks,&d,&m); 
+           int index = hash(m,d);
+           if(arr[index] == -1){
+              arr[index]= marks;
+              dt[m][d]=i;
+           }
+           else{
+               if(arr[index] == marks){
+                    int dat,mnth;
+                    dat = deHashD(index);
+                    mnth = deHashM(index);
+                     
+                    if(strcmp(rollNo2[i],rollNo2[dt[mnth][dat]])<0 ){
+                        dt[m][d]=i;
+                    }
+                }    
+                else if(arr[index] < marks){
+                    arr[index]= marks;
+                    dt[m][d]=i;
+                }
                 
-            }
-        }
-        for(int i=1;i<13;i++){
-            for(int j=1;j<32;j++){
-                if(j!=1){
-                    if(maxMarksInDay[i][j-1]!=-1){
-                        if(maxMarksInDay[i][j] == -1 ||(maxMarksInDay[i][j] != -1 && arr[maxMarksInDay[i][j]][0]<arr[maxMarksInDay[i][j-1]][0])){
-                            maxMarksInDay[i][j] = maxMarksInDay[i][j-1];
-                        }
-                    }
-                }
-            }
-            for(int j=31;j>0;j--){
-                if(j!=31){
-                    if(maxMarksInReverseDay[i][j+1]!=-1){
-                        if(maxMarksInReverseDay[i][j]==-1 ||(maxMarksInReverseDay[i][j]!=-1 && arr[maxMarksInReverseDay[i][j]][0]<arr[maxMarksInReverseDay[i][j+1]][0])){
-                            maxMarksInReverseDay[i][j] = maxMarksInReverseDay[i][j+1];
-                        }
-                    }
-                }
-            }
+           }
         }
         while(q--){
             int sd,sm,ed,em;
-            scanf("%d%d%d%d",&sd,&sm,&ed,&em);
+            scanf("%d %d %d %d",&sd,&sm,&ed,&em);
+            int start,end;
+            start = hash(sm,sd);
+            end = hash(em,ed);
             int maxMarks = INT_MIN;
-            int maxMarksBoy;
-
-            if(sm == em){
-                if(maxMarksInDay[sm][sd] != maxMarksInDay[sm][ed] || maxMarksInReverseDay[sm][sd] != maxMarksInReverseDay[sm][ed]){
-                    int k = ed;
-                    while(k>sd) {
-                        if(maxMarksInDay[sm][k]>maxMarksInDay[sm][k-1]){
-                            maxMarksBoy = maxMarksInDay[sm][k];
-                            printf("%d\n",maxMarksBoy);
-                            break;
-                        }
-                        maxMarksBoy = -1;
-                        k--;
-                    }
-                    int j=sd;
-                    if(maxMarksBoy == -1){
-                      while(j<ed){
-                          if(maxMarksInReverseDay[sm][j]>maxMarksInReverseDay[sm][j+1]){
-                              maxMarksBoy = maxMarksInReverseDay[sm][j];
-                              printf("%d\n",maxMarksBoy);
-                              break;
-                          }
-                          j++;
-                      }
+            int maxIndex;
+            for(int i=start;i<=end;i++){
+                if(arr[i] > maxMarks){
+                    maxMarks = arr[i];
+                    maxIndex = i;
+                }
+                else if(arr[i] == maxMarks && maxMarks != -1) {
+                    int dat1,mnth1,dat2,mnth2;
+                    dat1 = deHashD(i);
+                    mnth1 = deHashM(i);
+                    dat2 = deHashD(maxIndex);
+                    mnth2 = deHashM(maxIndex);
+                    int prio=0;
+                   
+                    if(strcmp(rollNo2[dt[mnth1][dat1]], rollNo2[dt[mnth2][dat2]])<0){
+                         maxMarks = arr[i];
+                         maxIndex = i;
                     }
                 }
-                else{
-                    int val1 = maxMarksInDay[sm][sd];
-                    int date1 = arr[val1][1];
-                    int val2 = maxMarksInReverseDay[sm][sd];
-                    int date2 = arr[val2][1];
-                    if(date1>=sd && date1<=ed){
-                        maxMarksBoy = val1;
-                    }
-                    else if(date2>=sd && date2<=ed){
-                        maxMarksBoy = val2;
-                    }
-                    else{
-                        maxMarksBoy = -1;
-                    }
-                }
+                
+            }
+            if(maxMarks == -1){
+               printf("NIL\n");
             }
             else{
-                if((maxMarksInDay[sm][sd]!=-1) && (arr[maxMarksInReverseDay[sm][sd]][0] > maxMarks)){
-                maxMarks = arr[maxMarksInReverseDay[sm][sd]][0];
-                maxMarksBoy = maxMarksInReverseDay[sm][sd];
-                }
-                if((maxMarksInDay[em][ed]!=-1) && (arr[maxMarksInDay[em][ed]][0] > maxMarks)) {
-                    maxMarks = arr[maxMarksInDay[em][ed]][0];
-                    maxMarksBoy = maxMarksInDay[em][ed];
-                }
-                for(int i=sm+1;i<em;i++){
-                    if((maxMarksInDay[i][31]!=-1) && (arr[maxMarksInDay[i][31]][0] > maxMarks)) {
-                    maxMarks = arr[maxMarksInDay[i][31]][0];
-                    maxMarksBoy = maxMarksInDay[i][31];
-                    }
-                }
-            }
-            if(maxMarksBoy == -1){
-                printf("NIL\n");
-            }
-            else{
-                printf("%s %s %d %d %d\n",rollNo[maxMarksBoy],courseId[maxMarksBoy],arr[maxMarksBoy][0],arr[maxMarksBoy][1],arr[maxMarksBoy][2]);
+                int dat, mnth;
+                dat = deHashD(maxIndex);
+                mnth = deHashM(maxIndex);
+                printf("%s %s %d %d %d\n",rollNo2[dt[mnth][dat]],courseId2[dt[mnth][dat]],arr[maxIndex],dat,mnth);
             }
         }
     }
 }
-
