@@ -30,7 +30,12 @@ int main(){
     }
     for(int i=2;i<=n;i++){
         for(int j=1;j<=sum;j++){
-            
+            if(j >= arr[i-1]){
+                dp[i][j] = min(1+dp[i][j-arr[i-1]], dp[i-1][j]);
+            }
+            else{
+                dp[i][j] = dp[i-1][j];
+            }
         }
     }
     cout<<dp[n][sum];

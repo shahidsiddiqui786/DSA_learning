@@ -55,11 +55,11 @@ int main()
         }
     }
     
-    // valid moves
+    // valid moves for knights //ya manually u need to think and write all 8 possible moves.
 	int xMove[8] = { 2, 1, -1, -2, -2, -1, 1, 2 };
 	int yMove[8] = { 1, 2, 2, 1, -1, -2, -2, -1 };
      
-    // let placed knight at 0,0.
+    // let placed knight at 0,0.  P.S: it's given
 	sol[0][0] = 0;
 	
     bool moves = knightour(0,0,1,sol,xMove,yMove);

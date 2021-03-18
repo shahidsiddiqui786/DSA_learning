@@ -17,9 +17,12 @@
 using namespace std;
 
 // int coinways(int arr[],int n,int sum){
-//     if(sum == 0 || n == 0){
+//     if(n == 0){
 //         return 0;
 //     }
+//     if(sum == 0){
+//           return 1;
+//        } 
 //     if(arr[n-1] <= sum){
 //         return coinways(arr,n,sum-arr[n-1])+coinways(arr,n,sum);
 //     }

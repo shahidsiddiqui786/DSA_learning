@@ -55,6 +55,7 @@ bool solver(int s[9][9],int r,int c,int n){
             if(isnext){
                 return true;
             }
+            s[r][c] = 0;
         }
     }
     s[r][c] = 0;
