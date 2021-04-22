@@ -7,12 +7,12 @@ using namespace std;
 //put every possible letter there and then move
 //to next and so on up to length of string
 void permutate(string s, int i,int l){
-    if(i == l){
+    if(i == (l/2)){
         cout<<s<<" ";
         return;
     }
     // if we are in b/w the places permutate for every possible letter
-    for(int j=i;j!=l;j++){
+    for(int j=(l/2);j!=l;j++){
         swap(s[i],s[j]);
         permutate(s,i+1,l);
         //now we backtrack our swap to restore original string

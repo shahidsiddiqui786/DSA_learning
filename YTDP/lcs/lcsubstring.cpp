@@ -1,9 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
-// LCS Problem Statement: Given two strings, find the length of 
+// LCSubstring Problem Statement: Given two strings, find the length of 
 // longest substring present in both of them. A substring is a 
 // sequence that appears in the same relative order, but not
-//  necessarily contiguous. 
+// necessarily contiguous. 
 
 //Recursive approach
 /*

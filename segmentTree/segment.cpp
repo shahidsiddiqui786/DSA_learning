@@ -15,7 +15,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// assuming n <= 10^3
+// assuming n <= 10^4
 int st[40000];
 
 //building Sum Segement tree

@@ -6,12 +6,12 @@ using namespace std;
 
 //bitsets
 
-int arr[10] = {-1};
-int d1[19] = {-1};
-int d2[19] = {-1};
+int arr[30] = {-1};
+int d1[60] = {-1};
+int d2[60] = {-1};
 
 //can we place
-bool isplaceable(int b[][10],int i,int j,int n){
+bool isplaceable(int b[][30],int i,int j,int n){
 
     //check for same col.
     if(arr[j] == 1){
@@ -19,7 +19,7 @@ bool isplaceable(int b[][10],int i,int j,int n){
     }
 
     // check for left dig
-    if(d1[(i-j)+9] == 1){
+    if(d1[(i-j)+19] == 1){
         return false;
     }
     
@@ -32,7 +32,7 @@ bool isplaceable(int b[][10],int i,int j,int n){
     return true;
 }
 
-bool placeQ(int b[][10],int i,int n){
+bool placeQ(int b[][30],int i,int n){
     if(i == n){
         //i.e. every queen is placed
         //print 
@@ -55,7 +55,7 @@ bool placeQ(int b[][10],int i,int n){
         if(isplaceable(b,i,j,n)){
             b[i][j] = 1;
             arr[j] = 1;
-            d1[(i-j)+9] = 1;
+            d1[(i-j)+29] = 1;
             d2[(i+j)] = 1;
              //try for next q
             bool ntq = placeQ(b,i+1,n);
@@ -65,7 +65,7 @@ bool placeQ(int b[][10],int i,int n){
             //it mean we need to backtrack
             b[i][j] = 0;
             arr[j] = -1;
-            d1[(i-j)+9] = -1;
+            d1[(i-j)+29] = -1;
             d2[(i+j)] = -1;
         }
     }
@@ -76,6 +76,6 @@ int main(){
    
    int n;
    cin>>n;
-   int board[10][10] = {0};
+   int board[30][30] = {0};
    int a = placeQ(board,0,n);
 }
