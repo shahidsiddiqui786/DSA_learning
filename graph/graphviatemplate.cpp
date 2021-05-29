@@ -167,7 +167,7 @@ class Graph {
            }
 
            //init the indegrees of all nodes
-           for(auto i:adjList){
+           for(auto i:adjList){ 
                T u = i.first;
                for(T v : adjList[u]){
                    indegree[v]++;
