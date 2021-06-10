@@ -1,8 +1,19 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-//problem statemant
+/*
+  problem::::-----
+      Given a sum of money you need get a minimum no of coins in exchage of it.
+      an array is given of availbale coins.
+  
+  Solution::::----
+    consider sum as s and set of coins, a1,a2,a3,a4..,
+    so, we have sub problem here sum-a1 as sum and 
+    coins as given coins.
 
+    so, approaced as DP.
+
+*/
 
 int main(){
     int sum,n;
