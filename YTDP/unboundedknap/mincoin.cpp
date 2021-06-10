@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+//problem statemant
+
 
 int main(){
     int sum,n;

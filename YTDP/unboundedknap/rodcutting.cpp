@@ -9,7 +9,7 @@
 
 /*    //solution using recursion
     int knapsack(int len[],int price[],int l, int n){
-        //if 0 capacity or no wt given then 0 value.
+        //if length become 0 or no choice is given then 0 value.
         if(n == 0 || l == 0){
             return 0;
         }
@@ -50,8 +50,8 @@ int main() {
     int n,l;
     cin>>n>>l;
     int len[n],price[n];
-    for(int i=1;i<=n;i++){
-        len[i] = i;
+    for(int i=0;i<n;i++){
+        len[i] = i+1;
     }
     for(int i=0;i<n;i++){
         cin>>price[i];

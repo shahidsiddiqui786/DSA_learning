@@ -14,7 +14,7 @@ int lcs(string a,string b,int n,int m,int maxp){
      if(a[n-1] == b[m-1]){
         maxp = lcs(a,b,n-1,m-1,maxp+1);
      }
-         return max(maxp,max(lcs(a,b,n-1,m,0), lcs(a,b,n,m-1,0)));
+        return max(maxp,max(lcs(a,b,n-1,m,0), lcs(a,b,n,m-1,0)));
 }
 */
 
